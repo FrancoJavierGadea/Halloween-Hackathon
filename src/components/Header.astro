@@ -1,0 +1,37 @@
+---
+import cloudinary from "@assets/svg/cloudinary.svg?url";
+
+const title = "Halloween Hackathon";
+---
+
+
+<header class="container">
+    <div>
+        <h1>{title}</h1>
+        <img class="Header-logo" src={cloudinary} alt="">
+    </div>
+
+</header>
+
+<style>
+
+    header {
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+
+
+        h1 {
+            font-family: var(--creepy-font);
+            font-size: clamp(35px, 5vw, 65px);
+            letter-spacing: 4px;
+            text-align: center;
+        }
+    
+        .Header-logo {
+            width: 130px;
+            margin-left: auto;
+        }
+    }
+
+</style>

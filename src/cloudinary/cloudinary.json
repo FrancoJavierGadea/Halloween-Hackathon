@@ -1,0 +1,9 @@
+{
+
+    "CLOUD_NAME": "diuo6zcam",
+
+    "UPLOAD_PRESETS": {
+        "DEFAULT": "ml_default",
+        "UNSIGNED": "preset-unsigned"
+    }
+}
