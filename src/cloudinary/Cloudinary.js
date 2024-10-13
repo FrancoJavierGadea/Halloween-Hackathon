@@ -39,8 +39,10 @@ async function getImage(publicID, transformation){
     img.addEventListener('error', () => {
 
         //Image not loaded status 423, try again
-        setTimeout(() => img.src = url, 1000);
+        setTimeout(() => img.src = url, 3000);
     });
+
+    //setTimeout(() => resolve({image, url}), 150000);
 
     return promise;
 }

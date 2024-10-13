@@ -1,14 +1,21 @@
 
 import { getImage, IA_EFFECTS } from "@cloudinary/Cloudinary.js";
-import {FACE_MASKS} from "@cloudinary/face-masks.js";
-import { useEffect, useMemo, useState } from "react";
+import {EXAMPLES, FACE_MASKS} from "@cloudinary/face-masks.js";
+import { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
 
 import "./MaskPlayground.css";
+import SkeletonLoader from "./SkeletonLoader.jsx";
+import UploadWiget from "./UploadWidget.jsx";
 
 
-export default function MaskPlayground({publicID = 'midudev'}){
+
+
+
+export default function MaskPlayground({}){
+
+    const [publicID, setPublicID] = useState(EXAMPLES.at(1));
 
     const [originalImage, setOriginalImage] = useState(null);
 
@@ -32,6 +39,8 @@ export default function MaskPlayground({publicID = 'midudev'}){
 
     const [masks, setMasks] = useState(null);
 
+    const [cont, setCont] = useState(0);
+
     useEffect(() => {
 
         (async () => {
@@ -43,32 +52,39 @@ export default function MaskPlayground({publicID = 'midudev'}){
                     { gravity: "face", height: 400, width: 400, crop: "auto" },
                     { quality: "auto", fetch_format: "auto" },
                     { effect: IA_EFFECTS.GEN_RESTORE },
-                    {
-                        effect: IA_EFFECTS.GEN_BACKGROUND_REPLACE({
-                            prompt: 'Replace the background with a night very creepy scene'
-                        })
-                    },
                     { 
                         effect: IA_EFFECTS.GEN_REPLACE({
-                            'from': 'Face',
-                            'to': mask.prompt,
+                            'from': mask.prompt.from,
+                            'to': mask.prompt.to,
                             'preserve-geometry': true,
                             'multiple': true
                         })
                     }, 
                 ]);
 
+                setCont(v => ++v);
+
                 return [key, result?.url];
             });
 
             const result = await Promise.all(promises);
-
             const masks = Object.fromEntries(result);
-
+            
             setMasks(masks);
+            setCont(0);
         })();
         
     }, [publicID]);
+
+
+    const imageLoaded = useCallback((result) => {
+
+        setPublicID(result.info.public_id);
+        setCont(0);
+        setOriginalImage(null);
+        setMasks(null);
+
+    }, []);
 
     //MARK: JSX
     return <div className="Mask-Playground">
@@ -79,7 +95,7 @@ export default function MaskPlayground({publicID = 'midudev'}){
                 { originalImage ? 
                     <img src={originalImage} /> 
                     : 
-                    'Loading...'
+                    <basic-loader />
                 }  
             </div>
 
@@ -87,13 +103,16 @@ export default function MaskPlayground({publicID = 'midudev'}){
                 { masks ?
                     <img src={masks[currentMask]} />
                     :
-                    'Loading...'
+                    <SkeletonLoader statusText={`Loading... ${cont}/${Object.values(FACE_MASKS).length}`} />
                 }
             </div>
         </div>
 
 
         <div className="Mask-Playground-controls">
+
+            <UploadWiget onLoad={imageLoaded} />
+            
             {
                 Object.entries(FACE_MASKS).map(([key, {name, icon}], i) => {
 
@@ -109,5 +128,6 @@ export default function MaskPlayground({publicID = 'midudev'}){
             }
         </div>
 
+        
     </div>
 }

@@ -1,10 +1,10 @@
+
 .Mask-Playground {
 
     padding: 10px;
-    background-color: rgb(44, 44, 44);
-
+    
     .Images-container {
-
+    
         display: flex;
         justify-content: space-around;
         
@@ -12,11 +12,13 @@
             
             width: 400px;
             height: 400px;
-    
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 5px;
             overflow: hidden;
 
-            img {
+            & > img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
@@ -26,8 +28,15 @@
     }
 
     .Mask-Playground-controls {
-
+    
+        backdrop-filter: blur(16px) saturate(180%);
+        background-color: #4d4d4d56;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        padding: 5px;
+        max-width: 800px;
         margin-top: 20px;
+        margin-inline: auto;
         display: flex;
         justify-content: space-around;
 
@@ -38,5 +47,42 @@
         img {
             width: 30px;
         }
+    }
+}
+
+
+
+.Skeleton-loader {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: rgb(0, 0, 0);
+
+    img {
+        width: 200px;
+        display: block;
+    }
+
+    p.Message {
+        font-family: var(--texts-font);
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    p.Status-text {
+        position: absolute;
+        bottom: 5px;
+        margin: 0;
+        color: #838383;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        font-family: var(--texts-font);
+        text-align: center;
     }
 }

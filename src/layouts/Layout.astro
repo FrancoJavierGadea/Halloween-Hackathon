@@ -1,6 +1,8 @@
 ---
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
+import "@/css/basic-loader.css";
+
 import Background from "@components/Background.astro";
 import Header from "@components/Header.astro";
 import Fonts from "@components/Fonts.astro";
@@ -19,6 +21,8 @@ const {title} = Astro.props;
         <Fonts />
 
         <title>{title}</title>
+
+        <script is:inline src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
     </head>
     <body>
 
@@ -31,6 +35,8 @@ const {title} = Astro.props;
             <Footer />
 
         </Background>
+
+       
     </body>
 </html>
 
@@ -44,6 +50,7 @@ const {title} = Astro.props;
     :root {
         --bs-body-bg: #000;
         --halloween-orange-color: #ff791f;
+        color-scheme: dark;
     }
 
     body {

@@ -1,14 +1,13 @@
 ---
-import cloudinary from "@assets/svg/cloudinary.svg?url";
 
-const title = "Halloween Hackathon";
+
+
 ---
 
 
 <header class="container">
     <div>
-        <h1>{title}</h1>
-        <img class="Header-logo" src={cloudinary} alt="">
+        <h1><span>Halloween</span> Hackathon</h1>
     </div>
 
 </header>
@@ -26,6 +25,10 @@ const title = "Halloween Hackathon";
             font-size: clamp(35px, 5vw, 65px);
             letter-spacing: 4px;
             text-align: center;
+
+            span {
+                color: var(--halloween-orange-color, orange);
+            }
         }
     
         .Header-logo {
