@@ -1,26 +1,36 @@
 import {Cloudinary, transformationStringFromObject} from "@cloudinary/url-gen";
+import { crop } from "@cloudinary/url-gen/actions/resize";
+import { generativeRestore } from "@cloudinary/url-gen/actions/effect";
+import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
+import { face } from "@cloudinary/url-gen/qualifiers/focusOn";
+
+
 import CONFIG from "@/cloudinary/cloudinary.json";
 
 const CLOUDINARY = new Cloudinary({
 
     cloud: {
-        cloudName: CONFIG.CLOUD_NAME
+        cloudName: import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME,
+        apiKey: import.meta.env.PUBLIC_CLOUDINARY_APP_KEY
     },
     url: {
         secure: true // force https, set to false to force http
-    }
+    },
 });
 
-async function getImage(publicID, transformation){
+async function getImage(publicID, config = {}){
+
+    const {retryTime = 4000, width = 500, height = 500} = config;
 
     const image = CLOUDINARY.image(publicID);
 
-    if(transformation){
-
-        image.addTransformation(
-            transformationStringFromObject(transformation)
-        );
-    }
+    image.resize(
+        crop()
+            .width(width)
+            .height(height)
+            .gravity(focusOn(face()))
+    )
+    .effect(generativeRestore());
 
     const url = image.toURL();
 
@@ -39,10 +49,8 @@ async function getImage(publicID, transformation){
     img.addEventListener('error', () => {
 
         //Image not loaded status 423, try again
-        setTimeout(() => img.src = url, 3000);
+        setTimeout(() => img.src = url, retryTime);
     });
-
-    //setTimeout(() => resolve({image, url}), 150000);
 
     return promise;
 }

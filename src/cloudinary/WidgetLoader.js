@@ -7,8 +7,11 @@ export function initWidget(listener = () => {}) {
 
     const config = {
         cloudName: CONFIG.CLOUD_NAME,
-        uploadPreset: CONFIG.UPLOAD_PRESETS.UNSIGNED,
+
+        uploadPreset: CONFIG.UPLOAD_PRESETS.DEFAULT,
+
         sources: ['local', 'url', 'camera', 'image_search', 'google_drive', ],
+
         styles:{
             palette: {
               window: "#141414",
@@ -28,7 +31,33 @@ export function initWidget(listener = () => {}) {
             frame: {
               background: '#000'
             },
-        }
+        },
+
+        detection: 'adv_face',
+
+        uploadSignature: (cb, paramsToSign, e) => {
+
+            fetch('/api/sign-upload', {
+                method: 'POST',
+                body: JSON.stringify(paramsToSign),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            .then(response => {
+
+                console.log(response.status);
+
+                return response.json();
+            })
+            .then(result => {
+
+                console.log(result);
+                cb(result.sign);
+            })
+        },
+
+        api_key: '689196284455697'
     };
 
     const callback = (error, result) => {

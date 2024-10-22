@@ -1,0 +1,77 @@
+
+.Overlay-playground {
+
+    padding: 10px;
+    
+    .Images-container {
+    
+        display: flex;
+        justify-content: space-around;
+        
+        .Original-image, .Transform-image {
+            
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            overflow: hidden;
+
+            & > img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+    }
+
+
+    .Overlay-playground-controls {
+
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        padding-block: 20px;
+
+        .input-group {
+
+            width: fit-content;
+            margin: 0;
+
+            button {
+
+                max-width: 50px;
+            }
+            span {
+                
+                letter-spacing: 2px;
+            }
+        }
+    }
+
+
+    .Masks-controls {
+
+        padding-block: 20px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        .btn {
+            backdrop-filter: blur(16px) saturate(180%);
+            --bs-btn-bg: #4d4d4d56;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 100px;
+            --bs-btn-hover-bg: var(--halloween-orange-color, orange);
+        }
+        .btn-active {
+            --bs-btn-bg: var(--halloween-orange-color, orange);
+        }
+        img {
+            height: 70px;
+        }
+    }
+}

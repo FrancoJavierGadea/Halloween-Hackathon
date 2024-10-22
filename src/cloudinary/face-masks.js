@@ -2,7 +2,14 @@ import white_skull from "@assets/icons/skull-1.svg?url";
 import mexican_skull from "@assets/icons/skull-2.svg?url";
 import clown from "@assets/icons/clown-1.svg?url";
 import pirate from "@assets/icons/pirate.svg?url";
-import luchador from "@assets/icons/luchador.svg?url";
+import zombie from "@assets/icons/zombie.svg?url";
+import CLOUDINARY from "./Cloudinary.js";
+import { crop } from "@cloudinary/url-gen/actions/resize";
+import { generativeReplace } from "@cloudinary/url-gen/actions/effect";
+import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
+import { face } from "@cloudinary/url-gen/qualifiers/focusOn";
+
+
 
 export const FACE_MASKS = {
     WHITE_SKULL: {
@@ -37,13 +44,13 @@ export const FACE_MASKS = {
         },
         icon: clown,
     },
-    LUCHADOR: {
-        name: 'Luchador',
+    ZOMBIE: {
+        name: 'Zombie',
         prompt: {
             from: 'the face completely by painting over it covering it entirely',
-            to: "A Mexican lucha libre mask featuring bold metallic and glossy colors the mask has a vibrant combination of red and blue with symmetrical patterns that cover the entire face the eyes are framed with sharp angular designs in contrasting colors like silver or white and the mouth is cut out in a rectangular or circular shape for an iconic luchador look additional details include thick lines and shapes running from the forehead down to the chin creating a fierce expression the mask is adorned with reflective gold or silver accents giving it a flashy heroic feel reminiscent of classic lucha libre masks",
+            to: "A decaying zombie face with rotting flesh hanging loosely from the bone the skin is grayish-green with patches of deep rot and open wounds the lower jawbone is partially exposed with tattered flesh barely clinging to it revealing broken yellowed teeth beneath hollow eye sockets stare out with one eye missing and the other glazed over with decay the nose is mostly gone leaving a gaping hole while the cheeks are sunken in with jagged tears in the skin",
         } ,
-        icon: luchador
+        icon: zombie
     }
 };
 
@@ -52,4 +59,49 @@ export const EXAMPLES = [
     'samples/people/smiling-man.jpg',
     'samples/smile.jpg',
     'midudev.jpg'
-]
+];
+
+
+export function applyMask(publicID, mask, config = {}){
+    
+    const {retryTime = 4000} = config;
+
+    const image = CLOUDINARY.image(publicID);
+
+    image.resize(
+        crop()
+          .width(500)
+          .height(500)
+          .gravity(focusOn(face()))
+    )
+    .effect(
+        generativeReplace()
+        .from(mask.prompt.from)
+        .to(mask.prompt.to)
+        .preserveGeometry()
+        .detectMultiple()
+    );
+
+    const url = image.toURL();
+
+    //Check if image is ready
+    const {promise, resolve} = Promise.withResolvers();
+
+    const img = new Image();
+
+    img.src = url;
+
+    img.addEventListener('load', () => {
+
+        //Image loaded status 200
+        resolve({image, url});
+    });
+
+    img.addEventListener('error', () => {
+
+        //Image not loaded status 423, try again
+        setTimeout(() => img.src = url, retryTime);
+    });
+
+    return promise;
+}

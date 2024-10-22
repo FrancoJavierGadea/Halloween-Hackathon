@@ -1,6 +1,6 @@
 
 import { getImage, IA_EFFECTS } from "@cloudinary/Cloudinary.js";
-import {EXAMPLES, FACE_MASKS} from "@cloudinary/face-masks.js";
+import {applyMask, EXAMPLES, FACE_MASKS} from "@cloudinary/face-masks.js";
 import { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
@@ -15,17 +15,13 @@ import UploadWiget from "./UploadWidget.jsx";
 
 export default function MaskPlayground({}){
 
-    const [publicID, setPublicID] = useState(EXAMPLES.at(1));
+    const [publicID, setPublicID] = useState(EXAMPLES.at(0));
 
     const [originalImage, setOriginalImage] = useState(null);
 
     useEffect(() => {
 
-        getImage(publicID, [
-            { gravity: "face", height: 400, width: 400, crop: "auto" },
-            { quality: "auto", fetch_format: "auto" },
-            { effect: IA_EFFECTS.GEN_RESTORE },
-        ])
+        getImage(publicID)
         .then((result) => {
 
             setOriginalImage(result?.url);
@@ -48,19 +44,7 @@ export default function MaskPlayground({}){
             const promises = Object.entries(FACE_MASKS)
             .map(async ([key, mask]) => {
 
-                const result = await getImage(publicID, [
-                    { gravity: "face", height: 400, width: 400, crop: "auto" },
-                    { quality: "auto", fetch_format: "auto" },
-                    { effect: IA_EFFECTS.GEN_RESTORE },
-                    { 
-                        effect: IA_EFFECTS.GEN_REPLACE({
-                            'from': mask.prompt.from,
-                            'to': mask.prompt.to,
-                            'preserve-geometry': true,
-                            'multiple': true
-                        })
-                    }, 
-                ]);
+                const result = await applyMask(publicID, mask);
 
                 setCont(v => ++v);
 
@@ -122,7 +106,7 @@ export default function MaskPlayground({}){
                     
                         onClick={(e) => setCurrentMask(e.currentTarget.value)} 
                     >
-                        <img src={icon} alt="" />
+                        <img src={icon} alt={`Mask of ${name}`} loading="lazy" />
                     </button>
                 })
             }

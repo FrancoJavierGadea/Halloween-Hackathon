@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import SKELETON from "@assets/sketon-loader/index.js";
 
+import "./SkeletonLoader.css";
+
 const MESSAGES = {
     es: [
         "Agregando un toque espectral...",
@@ -31,7 +33,7 @@ const MESSAGES = {
 };
 
 
-export default function SkeletonLoader({statusText, messages = MESSAGES.es, time = 3500}){
+export default function SkeletonLoader({statusText, messages = MESSAGES.en, time = 3500}){
 
     const [currentMessage, setCurrentMessage] = useState(messages.at(0));
 

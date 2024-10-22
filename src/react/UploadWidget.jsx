@@ -12,7 +12,7 @@ export default function UploadWiget({onLoad = () => {}}){
 
     return <>
     
-        <button className="btn btn-primary Upload-btn" onClick={() => widget.open()}>
+        <button className="btn btn-primary Upload-btn text-nowrap" onClick={() => widget.open()}>
             Upload Image
         </button>
     </>

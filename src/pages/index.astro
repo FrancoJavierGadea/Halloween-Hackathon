@@ -1,17 +1,34 @@
 ---
 import MaskPlayground from "@/react/MaskPlayground.jsx";
 import Layout from "@layouts/Layout.astro";
+import OverlayPlayground from "@react/OverlayPlayground.jsx";
 
-
+export const prerender = true;
 ---
 
 <Layout>
 
 	<main class="container">
 
-		<MaskPlayground client:only="react" />
-	
-		<div></div>
+
+		<section>
+
+			<h2>Try Real Masks</h2>
+
+			<OverlayPlayground client:only="react" />
+
+		</section>
+
+		<section>
+
+			<h2>Try AI-Generated Masks</h2>
+
+
+			<MaskPlayground client:only="react" />
+
+		</section>
+
+
 
 	</main>
 	
@@ -19,7 +36,33 @@ import Layout from "@layouts/Layout.astro";
 
 <style>
 
-	div {
-		height: 150vh;
+	section {
+		min-height: 500px;
+		margin-block: 100px;
+
+		h2 {
+			font-family: var(--texts-font);
+			font-weight: bold;
+			letter-spacing: 5px;
+			margin-bottom: 50px;
+			padding-block: 10px;
+			border-bottom: 1px solid var(--halloween-orange-color, orange);
+		}
+
+		animation-name: fadein;
+		animation-duration: 1s;
+		animation-delay: 1s;
+		animation-timing-function: ease-in;
+		animation-fill-mode: backwards;
+	}
+
+	@keyframes fadein {
+		
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 </style>

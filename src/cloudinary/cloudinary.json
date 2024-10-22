@@ -5,5 +5,7 @@
     "UPLOAD_PRESETS": {
         "DEFAULT": "ml_default",
         "UNSIGNED": "preset-unsigned"
-    }
+    },
+
+    "API_KEY": "689196284455697"
 }
