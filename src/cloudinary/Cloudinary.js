@@ -5,7 +5,7 @@ import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
 import { face } from "@cloudinary/url-gen/qualifiers/focusOn";
 
 
-import CONFIG from "@/cloudinary/cloudinary.json";
+
 
 const CLOUDINARY = new Cloudinary({
 
@@ -75,4 +75,4 @@ const IA_EFFECTS = {
 
 export default CLOUDINARY;
 
-export { CONFIG, getImage, IA_EFFECTS };
+export { getImage, IA_EFFECTS };

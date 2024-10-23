@@ -1,13 +1,12 @@
-import { CONFIG } from "./Cloudinary.js";
 
 export function initWidget(listener = () => {}) {
 
     if(!window.cloudinary) throw new Error('Cloudinary loader script is not loaded');
 
     const config = {
-        cloudName: CONFIG.CLOUD_NAME,
+        cloudName: import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME,
 
-        uploadPreset: CONFIG.UPLOAD_PRESETS.DEFAULT,
+        uploadPreset: 'ml_default',
 
         sources: ['local', 'url', 'camera', 'image_search', 'google_drive', ],
 
@@ -56,7 +55,7 @@ export function initWidget(listener = () => {}) {
             })
         },
 
-        api_key: '689196284455697'
+        api_key: import.meta.env.PUBLIC_CLOUDINARY_APP_KEY
     };
 
     const callback = (error, result) => {
