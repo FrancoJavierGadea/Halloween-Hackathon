@@ -1,0 +1,44 @@
+---
+const metaTags = {
+    description: "Welcome to the Halloween Hackathon! Explore this Cloudinary Hackathon project and try amazing Halloween masks with overlays or AI-generated features.",
+    keywords: "Halloween, Hackathon, Cloudinary, AI Masks, Overlays, Halloween Masks, Web Development, AI-generated Masks",
+    author: "Franco Javier Gadea",
+    viewport: "width=device-width, initial-scale=1.0",
+    robots: "index, follow",
+    og: {
+        title: "Halloween Hackathon - Cloudinary Project",
+        description: "Explore this Cloudinary Hackathon project and try out amazing Halloween masks with overlays or AI-generated features!",
+        image: "https://yourwebsite.com/path-to-halloween-image.png",
+        url: "https://yourwebsite.com",
+        type: "website"
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Halloween Hackathon - Cloudinary Project",
+        description: "Check out this Cloudinary Hackathon project featuring awesome Halloween masks with overlays or AI-generated options.",
+        image: "https://yourwebsite.com/path-to-halloween-image.png"
+    }
+};
+---
+
+
+<!-- Basic meta tags -->
+<meta name="description" content={metaTags.description}>
+<meta name="keywords" content={metaTags.keywords}>
+<meta name="author" content={metaTags.author}>
+<meta name="viewport" content={metaTags.viewport}>
+<meta name="robots" content={metaTags.robots}>
+
+<!-- Open Graph meta tags -->
+<meta property="og:title" content={metaTags.og.title}>
+<meta property="og:description" content={metaTags.og.description}>
+<meta property="og:image" content={metaTags.og.image}>
+<meta property="og:url" content={metaTags.og.url}>
+<meta property="og:type" content={metaTags.og.type}>
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content={metaTags.twitter.card}>
+<meta name="twitter:title" content={metaTags.twitter.title}>
+<meta name="twitter:description" content={metaTags.twitter.description}>
+<meta name="twitter:image" content={metaTags.twitter.image}>
+

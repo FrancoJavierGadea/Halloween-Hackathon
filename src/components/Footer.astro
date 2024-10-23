@@ -18,7 +18,10 @@ const url = "https://francojaviergadea.github.io";
         max-width: 600px;
         margin: auto;
         position: relative;
-        left: -50px;
+        
+        @media (min-width: 700px) {
+            left: -50px;
+        }
     }
     p {
         font-family: var(--texts-font);

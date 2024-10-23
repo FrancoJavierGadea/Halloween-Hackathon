@@ -1,19 +1,26 @@
 ---
 import MaskPlayground from "@/react/MaskPlayground.jsx";
+import SKELETON from "@assets/sketon-loader/index.js";
+import Home from "@components/Home.astro";
 import Layout from "@layouts/Layout.astro";
 import OverlayPlayground from "@react/OverlayPlayground.jsx";
 
+
+
 export const prerender = true;
+
+
 ---
 
-<Layout>
+<Layout title="Halloween Hackathon">
 
 	<main class="container">
-
+		
+		<Home />
 
 		<section>
 
-			<h2>Try Real Masks</h2>
+			<h2>Real Masks</h2>
 
 			<OverlayPlayground client:only="react" />
 
@@ -21,14 +28,12 @@ export const prerender = true;
 
 		<section>
 
-			<h2>Try AI-Generated Masks</h2>
+			<h2>AI-Generated Masks</h2>
 
 
 			<MaskPlayground client:only="react" />
 
 		</section>
-
-
 
 	</main>
 	
@@ -37,7 +42,7 @@ export const prerender = true;
 <style>
 
 	section {
-		min-height: 500px;
+		min-height: 300px;
 		margin-block: 100px;
 
 		h2 {
