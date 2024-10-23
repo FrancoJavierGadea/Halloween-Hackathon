@@ -7,6 +7,10 @@ Welcome to my submission for the **Halloween Hackathon** organized by Cloudinary
 🚀 **Deploy**: [https://halloween-hackathon.netlify.app/](https://halloween-hackathon.netlify.app/)
 
 
+
+<video src="demo.mp4"></video>
+
+
 <br>
 
 
