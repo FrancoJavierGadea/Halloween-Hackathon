@@ -1,5 +1,4 @@
 import { CONFIG } from "./Cloudinary.js";
-import bg from "@assets/background.lnkspace.svg?url";
 
 export function initWidget(listener = () => {}) {
 
