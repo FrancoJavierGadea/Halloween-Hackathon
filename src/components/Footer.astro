@@ -1,35 +1,55 @@
 ---
 const name = "Franco Javier Gadea";
 const url = "https://francojaviergadea.github.io";
+
+const github = 'https://github.com/FrancoJavierGadea/Halloween-Hackathon';
 ---
 
-<footer class="container">
-
-
+<footer>
     <p>
         Developed by <a href={url} target="_blank" rel="noopener noreferrer">{name}</a>
     </p>
+
+    <a class="github-link" href={github} target="_blank" title="Show on github">
+        <i class="bi bi-github" />
+    </a>
 </footer>
 
 
 <style>
 
     footer {
-        max-width: 600px;
-        margin: auto;
+        margin: 20px;
         position: relative;
         
-        @media (min-width: 700px) {
-            left: -50px;
-        }
     }
     p {
+        max-width: 600px;
+        margin: auto;
         font-family: var(--texts-font);
         letter-spacing: 2px;
-        font-size: 18px;
+        font-size: clamp(12px, 2vw, 18px);
+        padding-left: 50px;
+        position: relative;
+
+        @media (min-width: 1000px) {
+            left: -80px;
+        }
 
         a {
             text-decoration: none;
+            color: var(--halloween-orange-color, orange);
+        }
+    }
+
+    .github-link {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;    
+        font-size: 24px;
+        color: #fff;
+
+        &:hover {
             color: var(--halloween-orange-color, orange);
         }
     }
